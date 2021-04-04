@@ -1,2 +1,6 @@
 venv
-workspace
+.west/
+bootloader/
+modules/
+tools/
+zephyr/
