@@ -6,6 +6,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#include <logging/log.h>
+LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
+
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <string.h>
@@ -337,6 +340,8 @@ void main(void)
 
 	bt_conn_cb_register(&conn_callbacks);
 	bt_conn_auth_cb_register(&auth_cb_display);
+
+	LOG_INF("Bluetooth is ready and started Advertising");
 
 	/* Implement notification. At the moment there is no suitable way
 	 * of starting delayed work so we do it here
