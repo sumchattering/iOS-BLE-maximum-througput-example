@@ -10,19 +10,20 @@ LOG_MODULE_REGISTER(test_service, LOG_LEVEL_DBG);
 
 static struct bt_conn *current_conn = NULL;
 
-static struct bt_uuid_128 test_service_uuid = BT_UUID_INIT_128(
-	0xf0, 0xde, 0xbc, 0x9a, 0x78, 0x56, 0x34, 0x12,
-	0x78, 0x56, 0x34, 0x12, 0x78, 0x56, 0x34, 0x12);
+#define UUID_BASE_W32            0xc3dc0000
+#define UUID_BASE_W1             0x78f8
+#define UUID_BASE_W2             0x44de
+#define UUID_BASE_W3             0xbc0f
+#define UUID_BASE_W48            0x05291d85f5aa
+#define UUID_128_ENCODE(uuid_16) BT_UUID_128_ENCODE(UUID_BASE_W32 | (uuid_16), UUID_BASE_W1, UUID_BASE_W2, UUID_BASE_W3, UUID_BASE_W48)
 
-static struct bt_uuid_128 test_charactersitic_uuid = BT_UUID_INIT_128(
-	0xf1, 0xde, 0xbc, 0x9a, 0x78, 0x56, 0x34, 0x12,
-	0x78, 0x56, 0x34, 0x12, 0x78, 0x56, 0x34, 0x12);
-
-#define TEST_SERVICE_UUID BT_UUID_DECLARE_128(test_service_uuid)
-
-#define TEST_CHARACTERISTIC_UUID  BT_UUID_DECLARE_128(test_charactersitic_uuid)
+#define TEST_SERVICE_UUID BT_UUID_DECLARE_128(UUID_128_ENCODE(0x0001))
+#define TEST_CHARACTERISTIC_UUID  BT_UUID_DECLARE_128(UUID_128_ENCODE(0x0002))
 #define TEST_CHARACTERISTIC_PROPS (BT_GATT_CHRC_NOTIFY)
 #define TEST_CHARACTERISTIC_PERM  (BT_GATT_PERM_NONE)
+
+static void test__ccc_cb(const struct bt_gatt_attr *attr, uint16_t value);
+#define CCC_PERM (BT_GATT_PERM_READ | BT_GATT_PERM_WRITE)
 
 BT_GATT_SERVICE_DEFINE(
     test_service,
@@ -32,8 +33,6 @@ BT_GATT_SERVICE_DEFINE(
 
 static void test__ccc_cb(const struct bt_gatt_attr *attr, uint16_t value)
 {
-    int rc;
-
     if (value & BT_GATT_CCC_NOTIFY) {
         LOG_INF("Subscribed to sending data");
     } else {

@@ -14,9 +14,6 @@ LOG_MODULE_REGISTER(ble, LOG_LEVEL_DBG);
 
 static const struct bt_data advertising_data[] = {
     BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR)),
-    BT_DATA_BYTES(BT_DATA_UUID128_ALL,
-		      0xf0, 0xde, 0xbc, 0x9a, 0x78, 0x56, 0x34, 0x12,
-		      0x78, 0x56, 0x34, 0x12, 0x78, 0x56, 0x34, 0x12),
 };
 
 // Connection Callbacks
