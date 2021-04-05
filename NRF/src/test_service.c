@@ -61,7 +61,7 @@ static void send_zeroes()
 
     size_t max_fragment_len = bt_gatt_get_mtu(current_conn) - 3;
     uint8_t *fragment = malloc(sizeof(uint8_t) * max_fragment_len);
-    memset(fragment, 0, sizeof fragment);
+    memset(fragment, 1, sizeof fragment);
 
     int count = 0;
     while (count < 10) {
@@ -96,6 +96,8 @@ static void send_zeroes()
                 return;
         }
     }
+
+    free(fragment);
 }
 
 
