@@ -10,10 +10,10 @@ LOG_MODULE_REGISTER(test_service, LOG_LEVEL_DBG);
 
 static struct bt_conn *current_conn = NULL;
 
-#define UUID_BASE_W32            0xc3dc0000
-#define UUID_BASE_W1             0x78f8
-#define UUID_BASE_W2             0x44de
-#define UUID_BASE_W3             0xbc0f
+#define UUID_BASE_W32            0xa3dc0000
+#define UUID_BASE_W1             0x18f8
+#define UUID_BASE_W2             0x24de
+#define UUID_BASE_W3             0x3c0f
 #define UUID_BASE_W48            0x05291d85f5aa
 #define UUID_128_ENCODE(uuid_16) BT_UUID_128_ENCODE(UUID_BASE_W32 | (uuid_16), UUID_BASE_W1, UUID_BASE_W2, UUID_BASE_W3, UUID_BASE_W48)
 
